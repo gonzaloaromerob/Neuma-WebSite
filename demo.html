@@ -1,0 +1,48 @@
+<!-- demo.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> NEUMA | Solicita una cita</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Solicita tu demo NEUMA</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="soluciones.html">Soluciones</a>
+      <a href="demo.html">Demo</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Formulario de solicitud</h2>
+      <form action="mailto:info@neuma.com.co" method="POST" enctype="text/plain">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="correo">Correo electrónico:</label><br>
+        <input type="email" id="correo" name="correo" required><br><br>
+
+        <label for="profesion">Profesión o sector:</label><br>
+        <input type="text" id="profesion" name="profesion"><br><br>
+
+        <label for="mensaje">¿Qué esperas de NEUMA?</label><br>
+        <textarea id="mensaje" name="mensaje" rows="5"></textarea><br><br>
+
+        <button type="submit">Enviar solicitud</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Contacto: <a href="mailto:info@neuma.com.co">info@neuma.com.co</a></p>
+    <p>&copy; 2025 NEUMA</p>
+  </footer>
+</body>
+</html>
