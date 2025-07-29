@@ -21,65 +21,64 @@
 
   <main>
     <section>
-      <h2>Formulario de Solicitud de Reunión (Presencial o Virtual)</h2>
-      <form id="demoForm" action="https://formspree.io/f/movlwpwg" method="POST">
-          <label>Nombre</label>
-          <input type="text" name="Nombre" required>
-          <p>
-          <label>Correo-E</label>
-          <input type="email" name="email" required>
-          <p>
-          <label>Profesión o Sector</label>
-          <input type="text" name="Profesion">
-          <p>
-          <label>¿Qué esperas de NEUMA?</label>
-          <textarea name="mensaje" rows="5"></textarea>
-          <p>
-          <!-- Honeypot Anti‑Spam -->
-          <input type="text" name="_gotcha" style="display:none">
+      <h2>Formulario de Solicitud de Reunión (Virtual o Presencial)</h2>
+      <form action="https://formsubmit.co/info@neuma.com.co" method="POST">
+  <label>Nombre</label>
+  <input type="text" name="Nombre" required>
 
-          <!-- Redirección opcional tras enviar -->
-          <input type="hidden" name="_subject"  value="Solicitud Reunion (V/P)">
-          <input type="hidden" name="_redirect" value="https://www.neuma.com.co/demo.html#gracias">
+  <label>Correo</label>
+  <input type="email" name="email" required> <!-- IMPORTANTE: name="email" -->
 
-          <!-- reCAPTCHA checkbox -->
-          <div class="g-recaptcha" data-sitekey="6LeK7pIrAAAAAMpLJEQb1TxGAUqZ5JxQ8gBfBHwW"></div>
+  <label>Profesión o sector</label>
+  <input type="text" name="Profesion">
 
-          <button type="submit">Enviar solicitud</button>
+  <label>¿Qué esperas de NEUMA?</label>
+        <textarea name="mensaje" rows="5"></textarea>
+
+          <!-- Anti‑spam: honeypot -->
+        <input type="text" name="_honey" style="display:none">
+
+        <!-- Opcionales -->
+        <input type="hidden" name="_subject" value="Solicitud de Reunión (V/P)">
+        <input type="hidden" name="_next" value="https://www.neuma.com.co/demo.html#gracias">
+        <input type="hidden" name="_template" value="table">
+
+        <button type="submit">Enviar solicitud</button>
       </form>
-<script>
-  const form = document.getElementById('demoForm');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+
+      <script>
+        const form = document.getElementById('demoForm');
+        form.addEventListener('submit', async (e) => {
+        e.preventDefault();
   
-    // 1) Asegura que el usuario marcó el reCAPTCHA
-    const token = grecaptcha.getResponse();
-    if (!token) {
-      alert('Por favor completa el reCAPTCHA.');
-      return;
-    }
+        // 1) Asegura que el usuario marcó el reCAPTCHA
+        const token = grecaptcha.getResponse();
+        if (!token) {
+          alert('Por favor completa el reCAPTCHA.');
+        return;
+        }   
 
-    // 2) Incluye el token en el envío a Formspree
-    const fd = new FormData(form);
-    fd.append('g-recaptcha-response', token);
+        // 2) Incluye el token en el envío a Formspree
+        const fd = new FormData(form);
+        fd.append('g-recaptcha-response', token);
 
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: fd,
-      headers: { 'Accept': 'application/json' }
-    });
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: fd,
+          headers: { 'Accept': 'application/json' }
+        });
 
-    if (res.ok) {
-      form.reset();
-      grecaptcha.reset();
-      alert('¡Gracias! Te contactaremos muy pronto.');
-    } else {
-      alert('Hubo un problema al enviar. Inténtalo nuevamente.');
-    }
-  });
-</script>
-<!-- Script de reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        if (res.ok) {
+          form.reset();
+          grecaptcha.reset();
+          alert('¡Gracias! Te contactaremos muy pronto.');
+        } else {
+        alert('Hubo un problema al enviar. Inténtalo nuevamente.');
+        } 
+        });
+      </script>
+        <!-- Script de reCAPTCHA -->
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     </section>
   </main>
