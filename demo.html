@@ -35,32 +35,51 @@
           <label>¿Qué esperas de NEUMA?</label>
           <textarea name="mensaje" rows="5"></textarea>
           <p>
-          <!-- Anti‑spam opcional (honeypot) -->
+          <!-- Honeypot Anti‑Spam -->
           <input type="text" name="_gotcha" style="display:none">
 
-          <!-- Asunto opcional -->
-          <input type="hidden" name="_subject" value="Solicitud Reunion (V/P)">
+          <!-- Redirección opcional tras enviar -->
+          <input type="hidden" name="_subject"  value="Solicitud Reunion (V/P)">
+          <input type="hidden" name="_redirect" value="https://www.neuma.com.co/demo.html#gracias">
+
+          <!-- reCAPTCHA checkbox -->
+          <div class="g-recaptcha" data-sitekey="6LeK7pIrAAAAAEmI5XytxnP0zMmVU5Dx8tXhzeve"></div>
 
           <button type="submit">Enviar solicitud</button>
       </form>
 <script>
-  // Envío por HTTPS sin salir de la página
   const form = document.getElementById('demoForm');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+  
+    // 1) Asegura que el usuario marcó el reCAPTCHA
+    const token = grecaptcha.getResponse();
+    if (!token) {
+      alert('Por favor completa el reCAPTCHA.');
+      return;
+    }
+
+    // 2) Incluye el token en el envío a Formspree
+    const fd = new FormData(form);
+    fd.append('g-recaptcha-response', token);
+
     const res = await fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
+      body: fd,
       headers: { 'Accept': 'application/json' }
     });
+
     if (res.ok) {
       form.reset();
-      alert('¡Gracias! te contactaremos muy pronto.');
+      grecaptcha.reset();
+      alert('¡Gracias! Te contactaremos muy pronto.');
     } else {
-      alert('Hubo un problema al enviar; por favor intenta de nuevo.');
+      alert('Hubo un problema al enviar. Inténtalo nuevamente.');
     }
   });
 </script>
+<!-- Script de reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     </section>
   </main>
