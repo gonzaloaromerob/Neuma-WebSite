@@ -22,21 +22,46 @@
   <main>
     <section>
       <h2>Formulario de Solicitud de Reunión (Presencial o Virtual)</h2>
-      <form action="mailto:Info@NEUMA.Com.CO" method="POST" enctype="text/plain">
-        <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+      <form id="demoForm" action="https://formspree.io/f/movlwpwg" method="POST">
+          <label>Nombre</label>
+          <input type="text" name="nombre" required>
 
-        <label for="correo">Correo-E:</label><br>
-        <input type="email" id="correo" name="correo" required><br><br>
+          <label>Correo-E</label>
+          <input type="email" name="correo" required>
 
-        <label for="profesion">Profesión o Sector:</label><br>
-        <input type="text" id="profesion" name="profesion"><br><br>
+          <label>Profesión o Sector</label>
+          <input type="text" name="profesion">
 
-        <label for="mensaje">¿Qué esperas de NEUMA?</label><br>
-        <textarea id="mensaje" name="mensaje" rows="5"></textarea><br><br>
+          <label>¿Qué esperas de NEUMA?</label>
+          <textarea name="mensaje" rows="5"></textarea>
 
-        <button type="submit">Enviar solicitud</button>
+          <!-- Anti‑spam opcional (honeypot) -->
+          <input type="text" name="_gotcha" style="display:none">
+
+          <!-- Asunto opcional -->
+          <input type="hidden" name="_subject" value="Solicitud Reunion (V/P)">
+
+          <button type="submit">Enviar solicitud</button>
       </form>
+<script>
+  // Envío por HTTPS sin salir de la página
+  const form = document.getElementById('demoForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.reset();
+      alert('¡Gracias! te contactaremos muy pronto.');
+    } else {
+      alert('Hubo un problema al enviar; por favor intenta de nuevo.');
+    }
+  });
+</script>
+
     </section>
   </main>
 
